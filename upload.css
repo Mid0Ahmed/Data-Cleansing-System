@@ -1,0 +1,98 @@
+.dropdown-container {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    border-radius: 5px;
+  }
+
+  .dropdown-contain{
+    display: none;
+    position: absolute;
+    z-index: 1;
+    border-radius: 5px;
+    margin-left: 13%;
+
+  }
+  #inn{
+    margin-left: 23%;
+  }
+
+  .color{
+    background-color: rgb(182, 186, 186);
+  }
+
+
+  .cc{
+    margin-top: 10%;
+    margin-bottom: 10%;
+  }
+
+  /* Style for the dropdown button */
+  .dropdown-bt {
+    padding: 15px;
+    background-color: #F57500 !important;
+    color:white;
+    border-radius: 8%;
+    cursor: pointer;
+    border: none;
+    width:  200px;
+  }
+
+  .dashh{
+    background-color: #F57500 !important;
+    
+    color: white;
+    border: none !important;
+    padding: 10px !important;
+  }
+a{
+    text-decoration: none;
+}
+  /* Style for the dropdown items */
+  .dropdown-item {
+  
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s;
+   
+  }
+
+  /* Style for the form container */
+  .form-container {
+    display: none;
+    margin-top: 20px;
+  }
+
+  /* Style for the input and submit button */
+  .form-input {
+    margin-left: 100px;
+    border: 1px solid #007BFF;
+  }
+
+  .form-submit-btn {
+    padding: 8px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+
+  .colorr{
+    color:#F57500
+  }
+  .hea{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+  }
+
+
+  .linee{
+    height: 0.1px;
+    background-color: #ffffffbb
+}
+ 
+a{
+    text-decoration: none !important;
+}

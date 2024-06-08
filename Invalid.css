@@ -1,0 +1,102 @@
+
+*{
+    margin: 0%;
+    padding: 0%;
+}
+
+.flex{
+  display: flex;
+  color: white;
+  justify-content: space-around;
+  padding-top: 0.7%;
+}
+
+.dc{
+    margin-left: 75px;
+}
+
+.fgg{
+  
+    width: 50px;
+    height: 50px;
+  border: solid 2px white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5%;
+  
+  
+  }
+.bn{
+  color: #F57500;
+}
+
+th, td {
+    text-align: left;
+}
+.success-message {
+    display: none;
+    color: green;
+    font-weight: bold;
+}
+
+.Home{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+}
+
+.he{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+}
+
+
+
+.col{
+    color:#F57500
+}
+
+.btns{
+    background-color: #F57500 !important;
+    color: white !important;
+    width: 50%;
+    
+}
+.vv{
+    padding-top: 5%;
+}
+.btnss{
+    background-color: #F57500 !important;
+    color: white !important;
+    width: 35%;
+}
+.select{
+    background-color: #F57500 !important;
+}
+
+.btn{
+    width:180px !important;
+}
+
+
+.btnnn{
+    width:230px !important;
+}
+
+.btnnn{
+    width:200px !important;
+}
+
+
+#codeContainer {
+    display: none; /* Initially hide */
+    margin-top: 20px;
+  
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  
+  .cx{
+    cursor: pointer;
+  }
+  

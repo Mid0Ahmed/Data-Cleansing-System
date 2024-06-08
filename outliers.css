@@ -1,0 +1,106 @@
+.Home{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+}
+.col{
+    color:#F57500
+}
+
+.btns{
+    background-color: #F57500 !important;
+    color: white !important;
+    width: 50%;
+}
+
+.he{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+}
+
+
+.btnss{
+    background-color: #F57500 !important;
+    color: white !important;
+    width: 35%;
+}
+
+
+th, td {
+    text-align: left;
+}
+.success-message {
+    display: none;
+    color: green;
+    font-weight: bold;
+}
+
+
+
+.back{
+  background-color: rgba(0, 0, 0, 0.271);
+}
+
+.fgg{
+  
+  width: 50px;
+  height: 50px;
+border: solid 2px white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 187;
+  margin-top: 3%;
+
+}
+
+
+.dc{
+  margin-left: 100%;
+}
+
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: white;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+    border-radius: 5px; /* Roundness of the scrollbar thumb */
+  }
+  
+
+
+
+  .flex{
+    display: flex;
+    color: white;
+    justify-content: space-around;
+    padding-bottom: 6%;
+  }
+  
+  
+  
+  
+  .bn{
+    color: #F57500;
+  }
+
+
+  #showButton {
+
+  }
+  /* Style for the code container */
+  #codeContainer {
+    display: none; /* Initially hide */
+    margin-top: 20px;
+  
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+
+  .cx{
+    cursor: pointer;
+  }

@@ -1,0 +1,35 @@
+.Home{
+    background: linear-gradient(to right, #191952  0%, #341952 100%);
+}
+
+
+.card1{
+    background-color: #060B28;
+}
+
+.card2{
+    background-color: #060B28;
+}
+
+.ss{
+    background-color: #0a154e;
+}
+.nn{
+   margin-left: 10%; 
+}
+
+.font{
+    font-size: 16px;
+}
+
+
+a{
+    text-decoration: none !important;
+    color: white;
+}
+
+section table {
+    background: black !important;
+    
+}
+
