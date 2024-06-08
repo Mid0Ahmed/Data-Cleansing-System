@@ -1,0 +1,119 @@
+<link rel="stylesheet" href=".\static\upload.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@2.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />{% extends "layout.html" %}
+{% include 'nav.html'   %}
+
+{% block body %}
+<div class='d-flex justify-content-center align-items-center '>
+  <div class="linee w-75  "></div>
+</div>
+
+
+<div class="w-100 ps-2 hea text-white d-flex  justify-content-between">
+  <div><h1 class="py-3">Import Your <span class="colorr">Database</span></h1></div>
+
+<div class="mt-4 me-5"><a href="/dashbord" class="dashh btn btn-primary">Dashboard</a></div>
+  
+</div>
+
+<div class="d-flex justify-content-center align-items-center  cc ">
+  <div class="text-center w-75 h-50 r  ">
+    <form action="/upload" method="post">
+     
+        <!-- Dropdown button -->
+        <a id="myDropdownBtn" class="dropdown-bt  me-3 " onclick="toggleDropdown()">Local Server</a>
+
+
+        <!-- Dropdown container -->
+        <div id="myDropdown" class="dropdown-container w-50  mt-3">
+          <!-- Dropdown items -->
+          <select name="SelectedDatabase" class="color form-control bordered w-100" id="dropdownSelect">
+            <option value="Option 0" disabled selected>Select Database Name</option>
+            {%for d in db%}
+            <option value={{d}}>{{d}}</option>
+            {%endfor%}
+          </select>
+          <!-- Submit button as a dropdown item -->
+          <button type="submit" class="btn btn-primary mt-2">Upload</button>
+        </div>
+
+
+        <!-- Another button for the form -->
+        <a class="dropdown-bt  " onclick="toggleForm()">Another Server</a>
+
+        <!-- Form container -->
+        <div id="formContainer" class="form-container  ">
+          <!-- Input field and submit button -->
+
+          <input id="inn" type="text" class=" form-control w-50    " placeholder="Enter Server Name">
+          <button id="innn" class="form-submit-btn btn btn-primary mt-2" onclick="showFormDropdown()">Submit</button>
+
+          <!-- Dropdown and upload button within the form -->
+          <div id="formDropdown" class="dropdown-contain w-50    ">
+            <!-- Dropdown items -->
+            <select class=" color form-control w-100 mt-2 " id="formDropdownSelect">
+              <option value="Option 0"></option>
+              <option value="Option 0" disabled selected>Select Database Name</option>
+              <option value="Option B">Option B</option>
+              <option value="Option C">Option C</option>
+            </select>
+            <!-- Upload button as a dropdown item -->
+            <button class="btn btn-primary mt-2" onclick="submitFormDropdown()">Upload</button>
+          </div>
+    
+        </form>
+      </div>
+
+</div>
+<script>
+  // Function to toggle the dropdown visibility
+  function toggleDropdown() {
+    var dropdown = document.getElementById("myDropdown");
+    var dropdownBtn = document.getElementById("myDropdownBtn");
+
+    if (dropdown.style.display === "block") {
+      dropdown.style.display = "none";
+    } else {
+      // Get the position and dimensions of the button
+      var rect = dropdownBtn.getBoundingClientRect();
+
+      // Set the position of the dropdown container
+      dropdown.style.display = "block";
+      dropdown.style.top = rect.bottom + "px";
+      dropdown.style.left = "25%";
+
+
+
+    }
+  }
+
+  // Function to handle option selection
+
+
+  // Function to handle form submission
+
+
+  // Function to toggle the form visibility
+  function toggleForm() {
+    var formContainer = document.getElementById("formContainer");
+    formContainer.style.display = (formContainer.style.display === "block") ? "none" : "block";
+  }
+
+  // Function to show the form dropdown
+  function showFormDropdown() {
+    var formDropdown = document.getElementById("formDropdown");
+    var inn = document.getElementById("inn");
+    var innn = document.getElementById("innn");
+    formDropdown.style.display = "block";
+    inn.style.display = "none";
+    innn.style.display = "none";
+
+  }
+
+  // Function to handle form dropdown submission
+
+ </script>
+</div>
+{% include 'footer.html'   %}
+
+{% endblock %}

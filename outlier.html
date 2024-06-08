@@ -1,0 +1,613 @@
+
+
+<link rel="stylesheet" href=".\static\outliers.css" />
+<link
+href="https://cdn.jsdelivr.net/npm/bootstrap@2.3.3/dist/css/bootstrap.min.css"
+rel="stylesheet"
+integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+crossorigin="anonymous"
+/>
+
+
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4 Home">
+          <div class="d-flex">
+          <div class=" z-index  fgg" >
+            <a href="/dashboard"><i class="fas fa-arrow-left text-white fa-2x"></i></a>
+          </div>
+         <div> <h1 class="text-center bg-danger dc col py-3">Outliers</h1></div>
+        </div>
+
+<form method="GET" >
+          <select name="table" class="form-control fw-bolder mb-3" id="Table-name">
+            <option class="" value="Select"  selected>Select Table</option>
+            {% for filename in filenames %}
+            <option value="{{ filename }}">{{ filename }}</option>
+            {% endfor %}
+          </select>
+
+          <div class="form-control fw-bolder cx" id="showButton" onclick="toggleCodeContainer()">Select Specific Columns</div>
+        
+          <!-- Container to display code -->
+          <div id="codeContainer" style="display: none;">
+              <select name="columns" class="form-control fw-bolder mb-3" id="Table-name" multiple>
+                  <option value="fw-bolder" disabled>Select Columns</option>
+                  {% for column in columns %}
+                  <option value={{column}}>{{ column }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          
+
+
+
+
+
+          <select name="charttttt" class="form-control fw-bolder mt-3 mb-3" id="Table-name">
+            <option value="" disabled selected>Data Visualization</option>
+            <option value="Scatter_Plot">Scatter Plot</option>
+            <option value="Box_Plot">Box Plot</option>
+            <option value="Histogram">Histogram</option>
+            <option value="Line_Chart">Line Chart</option>
+          </select>
+          <input style="display: none;" type="text" id="pers" value="{{outlier_percentage}}">
+
+
+
+
+
+          <div class="d-flex justify-content-center align-items-c">
+            <button name="operation" class="btn btns " value="negative">Detect Negative Values</button>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div id="chart66" class="py-5"></div>
+            </div>
+          </div>
+
+          <div class=" flex text-center ">
+            <div class="">
+              <H3 class="bn">Outlier</H3>
+              <h3>{{num_outliers}}</h3>
+            </div>
+    
+    
+            <div class="">
+              <H3 class="bn">Total</H3>
+              <h3>{{total_rows}}</h3>
+            </div>
+    
+          </div>
+
+
+
+          <div class="pb-4 d-flex justify-content-center align-items-between">
+            <button name="operation"value='show' type="submit" class="btn me-5 btnss text-center">Show Table</button>
+            <button name="operation" class="btn  btnss text-center"value='find_outlier' >Find Outlier</button>
+            <button name="operation" class="btn btnss ms-5 text-center"value='delete_outlier'>Delete Outlier</button>
+            <button name="operation" class="btn btnss ms-5 text-center"value='delete_negative'>Delete Negative</button>
+        </form>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12 he">
+              <div class="he  text-white py-2">
+                <h1 class="text-center text-white">Original <span class="col">Table</span> </h1>
+              </div>
+            </div>
+          </div>
+           
+          {% if table_original=="You Should Select Table !" %}
+          <p style="margin-top: 3%;" class="alert alert-danger mx-auto w-100" role="alert">{{table_original}}</p>
+
+
+          <div class="card">
+            <div class="card-body" style="max-height: 400px; overflow-y: scroll;">
+          
+              {{ table_original|safe|mido }}
+            </div>
+          </div>
+          {% endif %}
+
+          <div class="row">
+            <div class="col-md-12 he">
+              <div class="he  text-white py-2">
+                <h1 class="text-center text-white">Outlier<span class="col"> Table</span> </h1>
+              </div>
+            </div>
+          </div>
+            <p style="margin-top: 3%;" class="alert alert-danger mx-auto w-100" role="alert">{{table_outliers}}</p>
+
+          
+              <div class="card">
+                <div class="card-body" style="max-height: 400px; overflow-y: scroll;">
+                
+                  {{ table_outliers|safe }}
+                </div>
+              </div>
+            <table class="table table-striped mt-3">
+                    <tr>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                        <th>Column 4</th>
+                        <th>Column 5</th>
+                        <th>Actions</th>
+                    </tr>
+               
+               
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                        <td>Data 4</td>
+                        <td>Data 5</td>
+                        <td>
+                            <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                            <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                            <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                            <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                        <td>Data 4</td>
+                        <td>Data 5</td>
+                        <td>
+                            <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                            <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                            <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                            <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                        <td>Data 4</td>
+                        <td>Data 5</td>
+                        <td>
+                            <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                            <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                            <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                            <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                        </td>
+                    </tr>
+
+
+
+
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                        <td>Data 4</td>
+                        <td>Data 5</td>
+                        <td>
+                            <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                            <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                            <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                            <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                        </td>
+                    </tr>
+                    
+               
+            </table>
+            <table class="table table-striped mt-3">
+              <tr>
+                  <th>Column 1</th>
+                  <th>Column 2</th>
+                  <th>Column 3</th>
+                  <th>Column 4</th>
+                  <th>Column 5</th>
+                  <th>Actions</th>
+              </tr>
+         
+         
+              <tr>
+                  <td>Data 1</td>
+                  <td>Data 2</td>
+                  <td>Data 3</td>
+                  <td>Data 4</td>
+                  <td>Data 5</td>
+                  <td>
+                      <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                      <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                      <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                      <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                  </td>
+              </tr>
+
+
+
+
+              <tr>
+                  <td>Data 1</td>
+                  <td>Data 2</td>
+                  <td>Data 3</td>
+                  <td>Data 4</td>
+                  <td>Data 5</td>
+                  <td>
+                      <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                      <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                      <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                      <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                  </td>
+              </tr>
+
+
+
+
+              <tr>
+                  <td>Data 1</td>
+                  <td>Data 2</td>
+                  <td>Data 3</td>
+                  <td>Data 4</td>
+                  <td>Data 5</td>
+                  <td>
+                      <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                      <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                      <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                      <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                  </td>
+              </tr>
+
+
+
+
+              <tr>
+                  <td>Data 1</td>
+                  <td>Data 2</td>
+                  <td>Data 3</td>
+                  <td>Data 4</td>
+                  <td>Data 5</td>
+                  <td>
+                      <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                      <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                      <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                      <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+                  </td>
+              </tr>
+              
+         
+      </table>        <table class="table table-striped mt-3">
+        <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            <th>Column 4</th>
+            <th>Column 5</th>
+            <th>Actions</th>
+        </tr>
+   
+   
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td>Data 3</td>
+            <td>Data 4</td>
+            <td>Data 5</td>
+            <td>
+                <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+            </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td>Data 3</td>
+            <td>Data 4</td>
+            <td>Data 5</td>
+            <td>
+                <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+            </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td>Data 3</td>
+            <td>Data 4</td>
+            <td>Data 5</td>
+            <td>
+                <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+            </td>
+        </tr>
+
+
+
+
+        <tr>
+            <td>Data 1</td>
+            <td>Data 2</td>
+            <td>Data 3</td>
+            <td>Data 4</td>
+            <td>Data 5</td>
+            <td>
+                <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+                <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+                <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+                <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+            </td>
+        </tr>
+        
+   
+</table>        <table class="table table-striped mt-3">
+  <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+      <th>Column 5</th>
+      <th>Actions</th>
+  </tr>
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+  
+
+</table>        <table class="table table-striped mt-3">
+  <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+      <th>Column 5</th>
+      <th>Actions</th>
+  </tr>
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+  
+
+</table>        <table class="table table-striped mt-3">
+  <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+      <th>Column 3</th>
+      <th>Column 4</th>
+      <th>Column 5</th>
+      <th>Actions</th>
+  </tr>
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+
+
+
+
+  <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+      <td>Data 3</td>
+      <td>Data 4</td>
+      <td>Data 5</td>
+      <td>
+          <span class="delete-icon text-danger" onclick="deleteRow(this.closest('tr'))"><i class="fas fa-trash-alt"></i></span>
+          <span class="update-icon text-primary" onclick="editRow(this.closest('tr'))"><i class="fas fa-edit"></i></span>
+          <span class="save-icon text-success" style="display:none" onclick="saveRow(this.closest('tr'))"><i class="fas fa-save"></i></span>
+          <span class="cancel-icon text-secondary" style="display:none" onclick="cancelEditRow(this.closest('tr'))"><i class="fas fa-times"></i></span>
+      </td>
+  </tr>
+  
+
+</table>
+
+            <div class="success-message" id="successMessage"><h6 class="text-center"> Updates successfully saved </h6></div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
+
+
+
+  {% block js %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script> <!-- Font Awesome JS -->
+  <script src=".\static\apexcharts.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> <!-- Bootstrap JS -->
+  <script src=".\static\outliers.js"></script>
+  {% endblock %}
+</html>

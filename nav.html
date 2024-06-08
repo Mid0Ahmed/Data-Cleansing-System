@@ -1,0 +1,43 @@
+{% block css %}
+  
+{% endblock %}
+{% block nav %}
+<div class=" nav navbar navbar-expand-lg">
+
+  <div class="container-fluid">
+    <div class="navbar-brand log ">
+      <img class='iconn' src=".\static\photos\head.png" alt="Logo" />
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link active fs-5 text-white me-4" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-white me-4" href="/About">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-white me-4" href="/upload">Upload</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-white me-4" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link fs-5 text-white me-4" href="#">Plans</a>
+        </li>
+
+
+      </ul>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
